@@ -11,7 +11,7 @@ index b0e472d6e54..d263b6b97fe 100644
  				this._remoteTerminalChannel.sendCommandResult(reqId, true, 'Invalid remote cli command: ' + commandId);
  				return;
  			}
-+			if (typeof terminalId == "undefined" && !this._ptys.has(terminalId)) {
++			if (typeof terminalId !== "undefined" && !this._ptys.has(terminalId)) {
 +				return;
 +			}
  			const commandArgs = e.commandArgs.map(arg => revive(arg));
