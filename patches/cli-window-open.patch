@@ -1,0 +1,19 @@
+diff --git a/src/vs/workbench/contrib/terminal/browser/remoteTerminalBackend.ts b/src/vs/workbench/contrib/terminal/browser/remoteTerminalBackend.ts
+index b0e472d6e54..d263b6b97fe 100644
+--- a/src/vs/workbench/contrib/terminal/browser/remoteTerminalBackend.ts
++++ b/src/vs/workbench/contrib/terminal/browser/remoteTerminalBackend.ts
+@@ -106,10 +106,14 @@ class RemoteTerminalBackend extends BaseTerminalBackend implements ITerminalBack
+ 			}
+ 			const reqId = e.reqId;
+ 			const commandId = e.commandId;
++			const terminalId = e.persistentProcessId;
+ 			if (!allowedCommands.includes(commandId)) {
+ 				this._remoteTerminalChannel.sendCommandResult(reqId, true, 'Invalid remote cli command: ' + commandId);
+ 				return;
+ 			}
++			if (typeof terminalId == "undefined" && !this._ptys.has(terminalId)) {
++				return;
++			}
+ 			const commandArgs = e.commandArgs.map(arg => revive(arg));
+ 			try {
+ 				const result = await this._commandService.executeCommand(e.commandId, ...commandArgs);
