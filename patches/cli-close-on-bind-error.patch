@@ -1,0 +1,18 @@
+diff --git a/src/server-main.ts b/src/server-main.ts
+index 6a9cf47d0fb..17d9aa3ebac 100644
+--- a/src/server-main.ts
++++ b/src/server-main.ts
+@@ -107,7 +107,12 @@ if (shouldSpawnCli) {
+        });
+        server.on('error', async (err) => {
+                const remoteExtensionHostAgentServer = await getRemoteExtensionHostAgentServer();
+-               return remoteExtensionHostAgentServer.handleServerError(err);
++               remoteExtensionHostAgentServer.handleServerError(err);
++               if (err.code === 'EADDRINUSE') {
++                       console.error('Terminating');
++                       process.exit(1);
++               }
++               return
+        });
+ 
+        const host = sanitizeStringArg(parsedArgs['host']) || (parsedArgs['compatibility'] !== '1.63' ? 'localhost' : undefined);
