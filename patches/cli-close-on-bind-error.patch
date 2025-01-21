@@ -1,18 +1,18 @@
-diff --git a/src/server-main.ts b/src/server-main.ts
-index 6a9cf47d0fb..17d9aa3ebac 100644
---- a/src/server-main.ts
-+++ b/src/server-main.ts
-@@ -107,7 +107,12 @@ if (shouldSpawnCli) {
+diff --git a/src/server-main.js b/src/server-main.js
+index e3dd44e4123..c342659f93e 100644
+--- a/src/server-main.js
++++ b/src/server-main.js
+@@ -139,7 +139,12 @@ async function start() {
         });
         server.on('error', async (err) => {
                 const remoteExtensionHostAgentServer = await getRemoteExtensionHostAgentServer();
 -               return remoteExtensionHostAgentServer.handleServerError(err);
 +               remoteExtensionHostAgentServer.handleServerError(err);
-+               if ((err as any).code === 'EADDRINUSE') {
-+                       console.error('Terminating');
-+                       process.exit(1);
-+               }
-+               return
++                if (err.code === 'EADDRINUSE') {
++                        console.error('Terminating');
++                        process.exit(1);
++                }
++                return
         });
- 
+
         const host = sanitizeStringArg(parsedArgs['host']) || (parsedArgs['compatibility'] !== '1.63' ? 'localhost' : undefined);
