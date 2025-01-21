@@ -8,7 +8,7 @@ index 6a9cf47d0fb..17d9aa3ebac 100644
                 const remoteExtensionHostAgentServer = await getRemoteExtensionHostAgentServer();
 -               return remoteExtensionHostAgentServer.handleServerError(err);
 +               remoteExtensionHostAgentServer.handleServerError(err);
-+               if (err.code === 'EADDRINUSE') {
++               if ((err as any).code === 'EADDRINUSE') {
 +                       console.error('Terminating');
 +                       process.exit(1);
 +               }
