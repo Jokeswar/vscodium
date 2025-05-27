@@ -67,7 +67,7 @@ jobs:
   compile:
     needs:
       - check
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     env:
       MS_COMMIT: ${{ needs.check.outputs.MS_COMMIT }}
       MS_TAG: ${{ needs.check.outputs.MS_TAG }}
@@ -237,7 +237,7 @@ jobs:
     needs:
       - check
       - compile
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     strategy:
       fail-fast: false
       matrix:
@@ -322,7 +322,7 @@ jobs:
     needs:
       - check
       - compile
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     strategy:
       fail-fast: false
       matrix:
